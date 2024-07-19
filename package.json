@@ -1,0 +1,22 @@
+{
+  "name": "blockchain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "blockchain.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ari-rm21/blockchainJsExample.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ari-rm21/blockchainJsExample/issues"
+  },
+  "homepage": "https://github.com/ari-rm21/blockchainJsExample#readme",
+  "dependencies": {
+    "crypto-js": "^4.2.0"
+  }
+}
