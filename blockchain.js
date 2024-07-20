@@ -19,15 +19,32 @@ class Block {
     ).toString();
   }
 
+  // proofOfWork(difficulty) {
+  //   while (
+  //     this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")
+  //   ) {
+  //     this.nonce++;
+  //     this.hash = this.computeHash();
+  //   }
+  // }
+
   proofOfWork(difficulty) {
-    while (
-      this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")
-    ) {
-      this.nonce++;
+    const target = '0'.repeat(difficulty);
+    while (true) {
       this.hash = this.computeHash();
+      if (this.hash.substring(0, difficulty) === target) {
+        break; // Encontramos un hash válido que cumple con la dificultad
+      }
+      this.nonce++; // Incrementamos el nonce y probamos de nuevo
     }
   }
+
+
+
 }
+
+
+
 
 class Blockchain {
   constructor() {
