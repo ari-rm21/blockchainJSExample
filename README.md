@@ -10,7 +10,9 @@ execute "node blockchain.js"
 
 Output
 node blockchain.js
+
 {
+
     "blockchain": [
         {
             "index": 0,
@@ -48,3 +50,4 @@ node blockchain.js
     "difficulty": 4
 }
 true
+
