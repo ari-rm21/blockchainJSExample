@@ -1,13 +1,22 @@
 const SHA256 = require("crypto-js/sha256");
 class Block {
   constructor(index, timestamp, data, precedingHash = " ") {
-    // TODO: Crear el constructor para el nuevo bloque
+    this.index = index;
+    this.timestamp = timestamp;
+    this.data = data;
+    this.precedingHash = precedingHash;
+    this.hash = this.computeHash();
+    this.nonce = 0;
   }
 
   computeHash() {
-
-    // TODO: Creemos un hash
-
+    return SHA256(
+      this.index +
+        this.precedingHash +
+        this.timestamp +
+        JSON.stringify(this.data) +
+        this.nonce
+    ).toString();
   }
 
   proofOfWork(difficulty) {
@@ -22,18 +31,21 @@ class Block {
 
 class Blockchain {
   constructor() {
-    // TODO: Crear el constructor para la nueva cadena.
+    this.blockchain = [this.startGenesisBlock()];
+    this.difficulty = 4;
   }
   startGenesisBlock() {
-    return new Block(0, "01/01/2020", "Bloque inicial", "0");
+    return new Block(0, "01/01/2020", "Initial Block in the Chain", "0");
   }
 
   obtainLatestBlock() {
     return this.blockchain[this.blockchain.length - 1];
   }
   addNewBlock(newBlock) {
-
-    // TODO: Agrega el nuevo bloque a la cadena
+    newBlock.precedingHash = this.obtainLatestBlock().hash;
+    //newBlock.hash = newBlock.computeHash();
+    newBlock.proofOfWork(this.difficulty);
+    this.blockchain.push(newBlock);
   }
 
   checkChainValidity() {
@@ -52,9 +64,24 @@ class Blockchain {
 
 let newBlockchain = new Blockchain();
 
-// TODO: Agregar nuevos bloques
+newBlockchain.addNewBlock(
+    new Block(1, "19/07/2024", {
+      sender: "Ariana Rodriguez",
+      recipient: "Pablo Contreras",
+      quantity: 50
+    })
+  );
+
+
+newBlockchain.addNewBlock(
+    new Block(2, "19/07/2024", {
+        sender: "Pablo Contreras",
+        recipient: "Laura Campos",
+        quantity: 30
+      })
+  );
   
 
 console.log(JSON.stringify(newBlockchain, null, 4));
 
-// TODO: Verificar si nuestra cadena es válida
+console.log(newBlockchain.checkChainValidity());
